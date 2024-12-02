@@ -1,0 +1,44 @@
+<!-- Main Container -->
+<div class="main-container">
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-container">
+            <img src="assets/images/default-profile.png" alt="Perfil" class="profile-image">
+        </div>
+        <div class="header-content">
+            <div class="welcome-text">
+                Bienvenido <span class="user-name">{{username}}</span> como <span class="user-role">{{userRol}}</span>
+            </div>
+            <div class="header-actions">
+                <button class="btn-credentials" (click)="abrirModalCredenciales()">
+                    Cambiar Credenciales
+                </button>
+                <button class="btn-logout" (click)="logout()">
+                    Cerrar Sesión
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Content Container -->
+    <div class="content-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul class="menu-list">
+                <li *ngFor="let item of menuItems">
+                    <a [routerLink]="[item.route]"
+                       [class.active]="item.active"
+                       class="menu-item">
+                        <i class="material-icons">{{item.icon}}</i>
+                        <span>{{item.label}}</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+</div>
