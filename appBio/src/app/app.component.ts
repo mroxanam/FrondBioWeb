@@ -12,6 +12,7 @@ import { LoginComponent } from "./login/login.component";
 import { HttpClientModule } from '@angular/common/http';
 import { RegistroComponent } from './registro/registro.component';
 import { QuienesSOmos01Component } from './QuienesSomos/quienes-somos01/quienes-somos01.component';
+import { FacturaComponent } from './factura/factura.component';
 
 @Component({
     selector: 'app-root',
@@ -30,7 +31,8 @@ import { QuienesSOmos01Component } from './QuienesSomos/quienes-somos01/quienes-
         AceptarTerminosComponent,
         DashBoardComponent,
         QuienesSOmos01Component,
-        RestablecerContrasenaComponent
+        RestablecerContrasenaComponent,
+        FacturaComponent
     ],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']

@@ -13,12 +13,8 @@
                 <span class="user-role">{{userRol}}</span>
             </div>
             <div class="header-actions">
-                <button class="btn-credentials" (click)="abrirModalCredenciales()">
-                    Cambiar Credenciales
-                </button>
-                <button class="btn-logout" (click)="logout()">
-                    Cerrar Sesión
-                </button>
+                <button class="btn-credentials" (click)="abrirModalCredenciales()">Cambiar Credenciales</button>
+                <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
             </div>
         </div>
     </header>
@@ -28,12 +24,17 @@
         <!-- Sidebar -->
         <nav class="sidebar">
             <ul class="menu-list">
-                <li *ngFor="let item of menuItems">
-                    <a [routerLink]="[item.route]"
-                       [class.active]="item.active"
-                       class="menu-item">
+                <li *ngFor="let item of menuItems" class="menu-item">
+                    <a [routerLink]="[item.route]" [routerLinkActive]="'active'">
                         <i class="material-icons">{{item.icon}}</i>
                         <span>{{item.label}}</span>
+                    </a>
+                </li>
+                <!-- Facturas Link -->
+                <li class="menu-item">
+                    <a [routerLink]="'/dash/factura'" routerLinkActive="active">
+                        <i class="material-icons">receipt</i>
+                        <span>Factura</span>
                     </a>
                 </li>
             </ul>

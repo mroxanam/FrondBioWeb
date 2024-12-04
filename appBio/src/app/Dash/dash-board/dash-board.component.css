@@ -35,7 +35,7 @@
 }
 
 .role-badge[data-role="Manager"] {
-    background-color: #2196f3;
+    background-color: #bbf321;
 }
 
 .role-badge[data-role="Tecnico"] {
@@ -293,6 +293,7 @@ app-foto-perfil {
     padding: 1rem 0;
 }
 
+/* Estilos del Menú */
 .menu-list {
     list-style: none;
     padding: 0;
@@ -306,24 +307,24 @@ app-foto-perfil {
     color: #ecf0f1;
     text-decoration: none;
     transition: all 0.3s ease;
+    border-left: 4px solid transparent; /* Sin borde por defecto */
 }
 
+/* Estilo Hover */
 .menu-item:hover {
     background-color: #34495e;
     color: #2ecc71;
 }
 
+/* Estilo Activo */
+.menu-item .active,
 .menu-item.active {
     background-color: #34495e;
     color: #2ecc71;
     border-left: 4px solid #2ecc71;
 }
 
-.menu-item i {
-    margin-right: 0.75rem;
-    width: 20px;
-    text-align: center;
-}
+
 
 /* Main Content Area */
 .main-content {
