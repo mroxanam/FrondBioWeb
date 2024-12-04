@@ -144,7 +144,8 @@ File: scss
 }
 
 .topbar .profile-pic {
-  width: 30px;
+  width: 25px;
+  height: 25px;
   border-radius: 100%;
 }
 
@@ -1053,4 +1054,12 @@ Notification page Jquery toaster
 .jq-icon-warning {
   background-color: #ffb22b;
   color: #ffffff;
+}
+
+.navbar-header img,
+.navbar-brand img {
+  width: 25px !important;
+  height: 25px !important;
+  max-width: 25px !important;
+  max-height: 25px !important;
 }

@@ -172,25 +172,30 @@
 }
 
 .welcome-text {
-    color: #99abb4;
-    margin-right: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #ffffff;
+    font-size: 1.1rem;
+    margin-right: auto;
 }
 
-.user-name {
+.welcome, .as-text {
+    color: #ffffff;
+    display: inline-block;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.user-name, .user-role {
+    color: #ffffff;
     font-weight: 600;
-    color: #26c6da;
-    margin: 0 5px;
+    letter-spacing: 0.3px;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
 .role-prefix {
     color: #99abb4;
     margin: 0 5px;
-}
-
-.user-role {
-    color: #ffffff;
-    font-weight: 500;
-    margin-left: 5px;
 }
 
 .spacer {
@@ -206,58 +211,44 @@
 
 /* Header Styles */
 .header {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
     background-color: #2c3e50;
     color: white;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .logo-container {
-    flex: 0 0 50px;
-    height: 50px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-right: 1rem;
-    border: 2px solid #3498db;
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
 }
 
-.profile-image {
-    width: 100%;
-    height: 100%;
+.logo-container img {
+    width: 69px;
+    height: 69px;
+    border-radius: 50%;
     object-fit: cover;
+}
+
+app-foto-perfil {
+    display: block;
+    width: 69px;
+    height: 69px;
 }
 
 .header-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
-    padding: 0 1rem;
-}
-
-.welcome-text {
-    margin-right: auto;
-    padding-left: 3rem;
-}
-
-.user-name {
-    color: #2ecc71;
-    font-weight: bold;
-    margin: 0 0.5rem;
-}
-
-.user-role {
-    color: #3498db;
-    margin-left: 0.5rem;
+    flex-grow: 1;
+    padding-left: 100px;
 }
 
 .header-actions {
-    display: flex;
-    gap: 1rem;
     margin-left: auto;
+    display: flex;
+    gap: 10px;
 }
 
 /* Button Styles */
