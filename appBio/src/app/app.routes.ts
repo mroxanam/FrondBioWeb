@@ -1,15 +1,14 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+import { Routes } from '@angular/router';
 import { DashBoardComponent } from './Dash/dash-board/dash-board.component';
-import { HomePageComponent } from './shared/home-page/home-page.component';
-import { RegistroComponent } from './registro/registro.component';
-import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
-import { RoleGuard } from './guards/role.guard';
+import { FacturaComponent } from './factura/factura.component';
 import { AuthGuard } from './guards/auth.guard';
+import { RoleGuard } from './guards/role.guard';
+import { LoginComponent } from './login/login.component';
 import { QuienesSOmos01Component } from './QuienesSomos/quienes-somos01/quienes-somos01.component';
+import { RegistroComponent } from './registro/registro.component';
+import { HomePageComponent } from './shared/home-page/home-page.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
-// Exportamos las rutas
 export const routes: Routes = [
   { 
     path: '', 
@@ -45,6 +44,10 @@ export const routes: Routes = [
         loadChildren: () => import('./reports/reports.module').then(m => m.ReportsModule),
         canActivate: [RoleGuard],
         data: { roles: ['Manager', 'Administracion', 'Tecnico'] }
+      },
+      {
+        path: 'factura', 
+        component: FacturaComponent // Factura se carga dentro del dashboard
       }
     ]
   },
@@ -56,14 +59,8 @@ export const routes: Routes = [
     path: 'unauthorized', 
     component: UnauthorizedComponent 
   },
-  { 
+  {   
     path: '**', 
     redirectTo: '' 
   }
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],  // Configura el router
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }

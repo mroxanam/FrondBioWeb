@@ -109,16 +109,22 @@ label {
   border-color: #1e6920;
 }
 
-.btn-secondary {
-  background-color: #4a4f53;
-  border-color: #4a4f53;
-  font-weight: 600;
+.btn-link {
+  background-color: transparent; /* Fondo transparente */
+  color: #000; /* Color negro para el texto */
+  border: none; /* Sin bordes */
+  text-decoration: none; /* Sin subrayado */
+  transition: color 0.3s, background-color 0.3s; /* Transición suave */
 }
 
-.btn-secondary:hover {
-  background-color: #343a40;
-  border-color: #343a40;
+.btn-link:focus,
+.btn-link:active,
+.btn-link:hover {
+  background-color: #000; /* Fondo blanco cuando se haga clic */
+  color: #fff; /* Texto blanco cuando se haga clic */
+  text-decoration: none; /* Sin subrayado en estos estados */
 }
+
 
 .alert {
   margin-bottom: 20px;
@@ -158,7 +164,7 @@ footer {
 }
 
 footer a {
-    color: #007bff;
+    color: #010810;
     text-decoration: none;
     margin: 0 0.5rem;
 }
