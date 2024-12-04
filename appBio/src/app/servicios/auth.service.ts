@@ -134,16 +134,27 @@ export class AuthService {
     );
   }
 
-  getUserInfo(): { username: string | null; rol: string | null } {
+  getUserInfo(): {
+    role: string; username: string | null; rol: string | null 
+} {
     if (!this.isBrowser) {
-      return { username: null, rol: null };
+      return {
+  username: null, rol: null,
+  role: '',
+  
+  
+};
     }
 
     const userInfoStr = localStorage.getItem('userInfo');
     console.log('UserInfo en localStorage:', userInfoStr);
 
     if (!userInfoStr) {
-      return { username: null, rol: null };
+      return {
+  username: null, rol: null,
+  role: '',
+  
+};
     }
 
     try {
@@ -152,7 +163,11 @@ export class AuthService {
       return userInfo;
     } catch (error) {
       console.error('Error al parsear userInfo:', error);
-      return { username: null, rol: null };
+      return {
+  username: null, rol: null,
+  role: '',
+  
+};
     }
   }
 
