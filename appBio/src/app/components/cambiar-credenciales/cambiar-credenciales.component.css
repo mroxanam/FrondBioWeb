@@ -76,25 +76,75 @@ input {
     font-size: 1.15em !important;
 }
 
+.foto-perfil-section {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.preview-container {
+  margin: 15px 0;
+}
+
+.preview-image {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+}
+
+.select-file-btn,
+.upload-btn {
+  margin: 10px;
+}
+
+.error-message {
+  color: #f44336;
+  margin: 10px 0;
+}
+
+.success-message {
+  color: #4caf50;
+  margin: 10px 0;
+}
+
+.foto-preview {
+  margin: 15px 0;
+  text-align: center;
+}
+
+.foto-upload {
+  margin: 10px 0;
+  text-align: center;
+}
+
 .alert {
-    padding: 13px;  
-    margin: 13px 0;  
-    border: 1px solid transparent;
-    border-radius: 4px;
-    font-size: 12px;  
-    text-align: center;
+  padding: 13px;  
+  margin: 13px 0;  
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 12px;  
+  text-align: center;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 4px;
 }
 
 .alert-success {
-    color: #155724 !important;
-    background-color: #d4edda !important;
-    border-color: #c3e6cb !important;
+  color: #155724 !important;
+  background-color: #d4edda !important;
+  border-color: #c3e6cb !important;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
 }
 
 .alert-danger {
-    color: #721c24 !important;
-    background-color: #f8d7da !important;
-    border-color: #f5c6cb !important;
+  color: #721c24 !important;
+  background-color: #f8d7da !important;
+  border-color: #f5c6cb !important;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
 }
 
 .modal-footer {
