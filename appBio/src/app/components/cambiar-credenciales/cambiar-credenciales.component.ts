@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { FotoPerfilService } from '../../servicios/foto-perfil.service';
 
 interface ActualizarCredencialesResponse {
   mensaje: string;
@@ -32,10 +33,15 @@ export class CambiarCredencialesComponent implements OnInit {
   error: string = '';
   success: string = '';
   loading: boolean = false;
+  fotoPerfil: File | null = null;
+  previewUrl: string | null = null;
+  fotoError: string = '';
+  fotoSuccess: string = '';
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private fotoPerfilService: FotoPerfilService,
     private dialogRef: MatDialogRef<CambiarCredencialesComponent>,
     private router: Router
   ) {
@@ -154,6 +160,57 @@ export class CambiarCredencialesComponent implements OnInit {
       this.error = 'Por favor, complete todos los campos correctamente';
       this.success = '';
     }
+  }
+
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      // Validar tipo de archivo
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+      if (!allowedTypes.includes(file.type)) {
+        this.fotoError = 'Solo se permiten archivos JPG, PNG o GIF';
+        return;
+      }
+
+      // Validar tamaño (5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        this.fotoError = 'La imagen no debe superar los 5MB';
+        return;
+      }
+
+      this.fotoPerfil = file;
+      this.fotoError = '';
+
+      // Crear preview
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.previewUrl = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  subirFoto(): void {
+    if (!this.fotoPerfil) {
+      this.fotoError = 'Por favor seleccione una imagen';
+      return;
+    }
+
+    this.loading = true;
+    this.fotoError = '';
+    this.fotoSuccess = '';
+
+    this.fotoPerfilService.subirFotoPerfil(this.fotoPerfil)
+      .subscribe({
+        next: (response) => {
+          this.fotoSuccess = 'Foto de perfil actualizada correctamente';
+          this.loading = false;
+        },
+        error: (error) => {
+          this.fotoError = 'Error al subir la foto: ' + (error.error?.mensaje || 'Error desconocido');
+          this.loading = false;
+        }
+      });
   }
 
   cerrar() {

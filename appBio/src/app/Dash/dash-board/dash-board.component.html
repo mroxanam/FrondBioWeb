@@ -3,11 +3,14 @@
     <!-- Header -->
     <header class="header">
         <div class="logo-container">
-            <img src="assets/images/default-profile.png" alt="Perfil" class="profile-image">
+            <app-foto-perfil></app-foto-perfil>
         </div>
         <div class="header-content">
             <div class="welcome-text">
-                Bienvenido <span class="user-name">{{username}}</span> como <span class="user-role">{{userRol}}</span>
+                <span class="welcome">Bienvenido</span> 
+                <span class="user-name">{{username}}</span> 
+                <span class="as-text">como</span> 
+                <span class="user-role">{{userRol}}</span>
             </div>
             <div class="header-actions">
                 <button class="btn-credentials" (click)="abrirModalCredenciales()">Cambiar Credenciales</button>

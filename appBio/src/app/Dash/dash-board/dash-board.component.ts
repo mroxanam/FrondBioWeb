@@ -7,12 +7,13 @@ import { MENU_ITEMS } from '../../config/menu-items.config';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { CambiarCredencialesComponent } from '../../components/cambiar-credenciales/cambiar-credenciales.component';
+import { FotoPerfilComponent } from '../../components/foto-perfil/foto-perfil.component';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dash-board',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatDialogModule],
+  imports: [CommonModule, RouterModule, MatDialogModule, FotoPerfilComponent],
   templateUrl: './dash-board.component.html',
   styleUrls: ['./dash-board.component.css']
 })
