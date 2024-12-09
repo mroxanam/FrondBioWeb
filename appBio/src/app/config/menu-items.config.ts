@@ -28,5 +28,12 @@ export const MENU_ITEMS: MenuItem[] = [
         route: '/dash/settings',
         icon: 'settings',
         roles: ['Administracion']
+    },
+    {
+        id: 'api-endpoints',
+        label: 'API Control',
+        route: '/dash/api-endpoints',
+        icon: 'api',
+        roles: ['Manager']
     }
 ];

@@ -8,6 +8,7 @@ import { QuienesSOmos01Component } from './QuienesSomos/quienes-somos01/quienes-
 import { RegistroComponent } from './registro/registro.component';
 import { HomePageComponent } from './shared/home-page/home-page.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { ApiEndpointsComponent } from './components/api-endpoints/api-endpoints.component';
 
 export const routes: Routes = [
   { 
@@ -48,6 +49,12 @@ export const routes: Routes = [
       {
         path: 'factura', 
         component: FacturaComponent // Factura se carga dentro del dashboard
+      },
+      {
+        path: 'api-endpoints',
+        component: ApiEndpointsComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ['Manager'] }
       }
     ]
   },
