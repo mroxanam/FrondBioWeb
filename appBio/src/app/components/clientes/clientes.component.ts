@@ -1,20 +1,21 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTable, MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule, MatTable, MatTableDataSource } from '@angular/material/table';
-import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
-import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ClienteService } from '../../services/cliente.service';
 import { Cliente } from '../../models/cliente.interface';
 import { ClienteDialogComponent } from './cliente-dialog/cliente-dialog.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { ClienteDetallesComponent } from './cliente-detalles/cliente-detalles.component';
 
 @Component({
   selector: 'app-clientes',
@@ -27,25 +28,21 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     MatButtonModule,
     MatIconModule,
     MatTableModule,
-    MatDialogModule,
-    MatSnackBarModule,
     MatFormFieldModule,
     MatInputModule,
     MatPaginatorModule,
     MatSortModule,
-    MatTooltipModule,
-    ClienteDialogComponent,
-    ConfirmDialogComponent
+    MatTooltipModule
   ]
 })
 export class ClientesComponent implements OnInit {
+  @ViewChild(MatTable) table!: MatTable<Cliente>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<Cliente>;
 
   clientes: Cliente[] = [];
-  columnasMostradas: string[] = ['dni', 'nombre', 'apellido', 'email', 'acciones'];
-  dataSource = new MatTableDataSource<Cliente>(this.clientes);
+  columnasMostradas: string[] = ['dni', 'nombre', 'apellido', 'email', 'detalles', 'acciones'];
+  dataSource = new MatTableDataSource<Cliente>();
 
   constructor(
     private clienteService: ClienteService,
@@ -69,7 +66,7 @@ export class ClientesComponent implements OnInit {
       next: (data) => {
         console.log('Clientes cargados:', data);
         this.clientes = data;
-        this.dataSource = new MatTableDataSource(this.clientes);
+        this.dataSource.data = this.clientes;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
@@ -210,5 +207,72 @@ export class ClientesComponent implements OnInit {
         });
       }
     });
+  }
+
+  verDetallesCliente(cliente: Cliente) {
+    this.clienteService.getClienteDatosTotales(cliente.dni).subscribe({
+      next: (clienteDetalle) => {
+        const dialogRef = this.dialog.open(ClienteDetallesComponent, {
+          width: '800px',
+          data: clienteDetalle
+        });
+      },
+      error: (error) => {
+        console.error('Error al obtener detalles del cliente:', error);
+        this.snackBar.open(
+          'Error al cargar los detalles del cliente',
+          'Cerrar',
+          {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+            panelClass: ['error-snackbar']
+          }
+        );
+      }
+    });
+  }
+
+  buscarPorDni(dniStr: string) {
+    const dni = parseInt(dniStr, 10);
+    if (!dni || isNaN(dni)) {
+      this.snackBar.open('Por favor, ingrese un DNI válido', 'Cerrar', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom'
+      });
+      return;
+    }
+
+    this.clienteService.buscarClienteByDni(dni).subscribe({
+      next: (cliente) => {
+        if (cliente) {
+          // Actualizar la tabla para mostrar solo el cliente encontrado
+          this.dataSource.data = [cliente];
+          this.snackBar.open('Cliente encontrado', 'Cerrar', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom'
+          });
+        }
+      },
+      error: (error) => {
+        console.error('Error al buscar cliente:', error);
+        this.snackBar.open(
+          error.status === 404 ? 'No se encontró ningún cliente con ese DNI' : 'Error al buscar cliente',
+          'Cerrar',
+          {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+            panelClass: ['error-snackbar']
+          }
+        );
+      }
+    });
+  }
+
+  limpiarBusqueda() {
+    this.cargarClientes();
   }
 }

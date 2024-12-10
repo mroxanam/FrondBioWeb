@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { Cliente } from '../models/cliente.interface';
+import { Cliente, ClienteDto } from '../models/cliente.interface';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -114,6 +114,43 @@ export class ClienteService {
   deleteCliente(dni: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${dni}`, this.httpOptions).pipe(
       catchError(this.handleError)
+    );
+  }
+
+  // Obtener datos totales del cliente por DNI
+  getClienteDatosTotales(dni: number): Observable<ClienteDto> {
+    const url = `${this.apiUrl}/${dni}/datos-totales`;
+    return this.http.get<ClienteDto>(url, {
+      headers: new HttpHeaders({
+        'Accept': 'application/json'
+      }),
+      withCredentials: true
+    }).pipe(
+      tap(response => console.log('Datos totales del cliente:', response)),
+      catchError(error => {
+        console.error('Error al obtener datos totales del cliente:', error);
+        if (error.status === 404) {
+          return throwError(() => new Error('Cliente no encontrado.'));
+        }
+        return this.handleError(error);
+      })
+    );
+  }
+
+  // Buscar cliente por DNI
+  buscarClienteByDni(dni: number): Observable<Cliente> {
+    const url = `${this.apiUrl}/${dni}`;
+    return this.http.get<Cliente>(url, {
+      headers: new HttpHeaders({
+        'Accept': 'application/json'
+      }),
+      withCredentials: true
+    }).pipe(
+      tap(response => console.log('Cliente encontrado:', response)),
+      catchError(error => {
+        console.error('Error al buscar cliente por DNI:', error);
+        return this.handleError(error);
+      })
     );
   }
 
