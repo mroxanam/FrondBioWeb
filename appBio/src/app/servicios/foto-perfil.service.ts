@@ -10,7 +10,7 @@ export class FotoPerfilService {
 
   constructor(private http: HttpClient) { }
 
-  subirFotoPerfil(archivo: File): Observable<any> {
+  subirFotoPerfil(archivo: File, usuarioId?: string): Observable<any> {
     const formData = new FormData();
     formData.append('foto', archivo);
 
@@ -18,11 +18,13 @@ export class FotoPerfilService {
       withCredentials: true
     };
 
-    return this.http.post(`${this.apiUrl}/subir`, formData, options);
+    const url = usuarioId ? `${this.apiUrl}/subir/${usuarioId}` : `${this.apiUrl}/subir`;
+    return this.http.post(url, formData, options);
   }
 
-  obtenerFotoPerfil(): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/obtener`, {
+  obtenerFotoPerfil(usuarioId?: string): Observable<Blob> {
+    const url = usuarioId ? `${this.apiUrl}/obtener/${usuarioId}` : `${this.apiUrl}/obtener`;
+    return this.http.get(url, {
       responseType: 'blob',
       withCredentials: true
     });

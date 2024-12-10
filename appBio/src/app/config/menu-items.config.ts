@@ -33,7 +33,14 @@ export const MENU_ITEMS: MenuItem[] = [
         id: 'clientes',
         label: 'Clientes',
         route: '/dash/clientes',
-        icon: 'people',
+        icon: 'group',
+        roles: ['Manager']
+    },
+    {
+        id: 'usuarios-registrados',
+        label: 'Usuarios Registrados',
+        route: '/dash/usuarios-registrados',
+        icon: 'manage_accounts',
         roles: ['Manager']
     },
     {

@@ -152,7 +152,7 @@ export class ClientesComponent implements OnInit {
           return;
         }
         
-        this.clienteService.updateCliente(cliente.dni, clienteActualizado).subscribe({
+        this.clienteService.updateCliente(cliente.numeroCliente, clienteActualizado).subscribe({
           next: () => {
             this.cargarClientes();
             this.snackBar.open('Cliente actualizado con éxito', 'Cerrar', {
