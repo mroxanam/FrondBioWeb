@@ -246,16 +246,6 @@ export class ApiEndpointsComponent implements OnInit {
       ]
     },
     {
-      name: 'Clientes',
-      endpoints: [
-        { method: 'GET', path: '/UsuarioAdministrador/Cliente', description: 'Obtener todos los clientes', showTestPanel: false, testBody: '', testResponse: null },
-        { method: 'GET', path: '/UsuarioAdministrador/Cliente/{dni}', description: 'Obtener cliente por DNI', showTestPanel: false, testBody: '', testResponse: null },
-        { method: 'POST', path: '/UsuarioAdministrador/Cliente', description: 'Crear nuevo cliente', showTestPanel: false, testBody: '', testResponse: null },
-        { method: 'PUT', path: '/UsuarioAdministrador/Cliente/{dni}', description: 'Actualizar cliente', showTestPanel: false, testBody: '', testResponse: null },
-        { method: 'DELETE', path: '/UsuarioAdministrador/Cliente/{dni}', description: 'Eliminar cliente', showTestPanel: false, testBody: '', testResponse: null }
-      ]
-    },
-    {
       name: 'Sensores',
       endpoints: [
         { method: 'GET', path: '/api/SensorHumedad', description: 'Obtener datos de humedad', showTestPanel: false, testBody: '', testResponse: null },

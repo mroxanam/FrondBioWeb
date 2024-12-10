@@ -30,6 +30,13 @@ export const MENU_ITEMS: MenuItem[] = [
         roles: ['Administracion']
     },
     {
+        id: 'clientes',
+        label: 'Clientes',
+        route: '/dash/clientes',
+        icon: 'people',
+        roles: ['Manager']
+    },
+    {
         id: 'api-endpoints',
         label: 'API Control',
         route: '/dash/api-endpoints',
