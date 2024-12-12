@@ -35,14 +35,13 @@ export class RegistroComponent implements OnInit {
       dni: [null, [Validators.required]]
     });
 
-    // Mantener los valores anteriores al cambiar entre campos
+    // Suscribirse a los cambios del formulario
     this.registroForm.valueChanges.subscribe(values => {
       Object.keys(values).forEach(key => {
         const control = this.registroForm.get(key);
-        const currentValue = values[key];
-        
-        if (control && currentValue !== null && currentValue !== undefined && currentValue !== '') {
-          control.setValue(currentValue, { emitEvent: false });
+        if (control && control.value !== null) {
+          // Forzar la actualización del valor
+          control.updateValueAndValidity({ emitEvent: false });
         }
       });
     });
@@ -50,20 +49,15 @@ export class RegistroComponent implements OnInit {
 
   onSubmit() {
     if (this.registroForm.valid) {
-      const userData = {
-        username: this.registroForm.get('username')?.value,
-        email: this.registroForm.get('email')?.value,
-        password: this.registroForm.get('password')?.value,
-        dni: Number(this.registroForm.get('dni')?.value)
-      };
+      const formData = this.registroForm.value;
 
-      this.http.post('http://localhost:5068/Auth/register', userData)
+      this.http.post('http://localhost:5068/Auth/register', formData)
         .subscribe({
           next: (response) => {
             this.successMessage = '¡Registro exitoso! Redirigiendo al login...';
             this.errorMessage = '';
             
-            // Limpiar el formulario solo después de un registro exitoso
+            // Limpiar el formulario después de un registro exitoso
             this.registroForm.reset();
             
             setTimeout(() => {
@@ -77,17 +71,6 @@ export class RegistroComponent implements OnInit {
         });
     } else {
       this.markFormGroupTouched(this.registroForm);
-    }
-  }
-
-  // Prevenir la pérdida de datos al tocar un campo
-  onFieldFocus(fieldName: string): void {
-    const control = this.registroForm.get(fieldName);
-    if (control) {
-      const currentValue = control.value;
-      if (currentValue) {
-        control.setValue(currentValue, { emitEvent: false });
-      }
     }
   }
 
