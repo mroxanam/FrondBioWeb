@@ -80,10 +80,12 @@ export class LoginComponent {
         },
         error: (error) => {
           console.error('Error en login:', error);
-          if (error instanceof Error) {
-            this.error = error.message;
+          if (error.status === 401) {
+            this.errorMessage = 'Usuario o contraseña incorrectos';
+          } else if (error instanceof Error) {
+            this.errorMessage = error.message;
           } else {
-            this.error = error.error?.mensaje || error.error?.message || 'Error al iniciar sesión';
+            this.errorMessage = error.error?.mensaje || error.error?.message || 'Error al iniciar sesión. Por favor, intente nuevamente.';
           }
           this.loading = false;
         },
