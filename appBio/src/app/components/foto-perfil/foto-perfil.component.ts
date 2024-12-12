@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FotoPerfilService } from '../../servicios/foto-perfil.service';
@@ -8,7 +8,7 @@ import { FotoPerfilService } from '../../servicios/foto-perfil.service';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="foto-perfil-container" (click)="triggerFileInput()">
+    <div class="foto-perfil-container" (click)="triggerFileInput()" [style.width.px]="width" [style.height.px]="height">
       <input
         type="file"
         #fileInput
@@ -21,7 +21,7 @@ import { FotoPerfilService } from '../../servicios/foto-perfil.service';
         alt="Foto de perfil"
         class="foto-perfil"
       >
-      <div class="overlay">
+      <div class="overlay" *ngIf="!soloLectura">
         <span>Cambiar foto</span>
       </div>
     </div>
@@ -29,13 +29,9 @@ import { FotoPerfilService } from '../../servicios/foto-perfil.service';
   styles: [`
     .foto-perfil-container {
       position: relative;
-      width: 100px;
-      height: 100px;
       border-radius: 50%;
       overflow: hidden;
       cursor: pointer;
-      margin-left: 45px;
-      margin-top: -8px;
     }
 
     .foto-perfil {
@@ -69,6 +65,11 @@ import { FotoPerfilService } from '../../servicios/foto-perfil.service';
   `]
 })
 export class FotoPerfilComponent implements OnInit {
+  @Input() width: number = 100;
+  @Input() height: number = 100;
+  @Input() usuarioId?: string;
+  @Input() soloLectura: boolean = false;
+
   fotoUrl: string | null = null;
 
   constructor(
@@ -81,7 +82,7 @@ export class FotoPerfilComponent implements OnInit {
   }
 
   cargarFotoPerfil() {
-    this.fotoPerfilService.obtenerFotoPerfil().subscribe({
+    this.fotoPerfilService.obtenerFotoPerfil(this.usuarioId).subscribe({
       next: (blob) => {
         this.fotoUrl = URL.createObjectURL(blob);
       },
@@ -92,6 +93,8 @@ export class FotoPerfilComponent implements OnInit {
   }
 
   triggerFileInput() {
+    if (this.soloLectura) return;
+    
     const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
     if (fileInput) {
       fileInput.click();
@@ -119,7 +122,7 @@ export class FotoPerfilComponent implements OnInit {
       }
 
       // Subir foto
-      this.fotoPerfilService.subirFotoPerfil(file).subscribe({
+      this.fotoPerfilService.subirFotoPerfil(file, this.usuarioId).subscribe({
         next: (response) => {
           this.snackBar.open('Foto de perfil actualizada correctamente', 'Cerrar', {
             duration: 3000

@@ -8,7 +8,7 @@
         {{ errorMessage }}
     </div>
 
-    <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="registroForm" (ngSubmit)="onSubmit()" autocomplete="off">
       <!-- Username -->
       <div class="form-group">
         <label for="username">Username</label>
@@ -16,7 +16,9 @@
                id="username" 
                formControlName="username" 
                class="form-control"
-               (focus)="onFieldFocus('username')"
+               autocomplete="off"
+               #usernameInput
+               [attr.value]="registroForm.get('username')?.value"
                [ngClass]="{'is-invalid': registroForm.get('username')?.invalid && registroForm.get('username')?.touched}">
         <div class="invalid-feedback" *ngIf="registroForm.get('username')?.errors?.['required'] && registroForm.get('username')?.touched">
           Username es requerido
@@ -30,7 +32,9 @@
                id="email" 
                formControlName="email" 
                class="form-control"
-               (focus)="onFieldFocus('email')"
+               autocomplete="off"
+               #emailInput
+               [attr.value]="registroForm.get('email')?.value"
                [ngClass]="{'is-invalid': registroForm.get('email')?.invalid && registroForm.get('email')?.touched}">
         <div class="invalid-feedback" *ngIf="registroForm.get('email')?.errors?.['required'] && registroForm.get('email')?.touched">
           Email es requerido
@@ -47,7 +51,9 @@
                id="password" 
                formControlName="password" 
                class="form-control"
-               (focus)="onFieldFocus('password')"
+               autocomplete="new-password"
+               #passwordInput
+               [attr.value]="registroForm.get('password')?.value"
                [ngClass]="{'is-invalid': registroForm.get('password')?.invalid && registroForm.get('password')?.touched}">
         <div class="invalid-feedback" *ngIf="registroForm.get('password')?.errors?.['required'] && registroForm.get('password')?.touched">
           Password es requerido
@@ -61,7 +67,9 @@
                id="dni" 
                formControlName="dni" 
                class="form-control"
-               (focus)="onFieldFocus('dni')"
+               autocomplete="off"
+               #dniInput
+               [attr.value]="registroForm.get('dni')?.value"
                [ngClass]="{'is-invalid': registroForm.get('dni')?.invalid && registroForm.get('dni')?.touched}">
         <div class="invalid-feedback" *ngIf="registroForm.get('dni')?.errors?.['required'] && registroForm.get('dni')?.touched">
           DNI es requerido

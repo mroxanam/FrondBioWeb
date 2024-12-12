@@ -8,6 +8,10 @@ import { QuienesSOmos01Component } from './QuienesSomos/quienes-somos01/quienes-
 import { RegistroComponent } from './registro/registro.component';
 import { HomePageComponent } from './shared/home-page/home-page.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { ApiEndpointsComponent } from './components/api-endpoints/api-endpoints.component';
+import { ClientesComponent } from './components/clientes/clientes.component';
+import { UsuariosRegistradosComponent } from './components/usuarios-registrados/usuarios-registrados.component';
+import { ForumComponent } from './forum/forum.component';
 
 export const routes: Routes = [
   { 
@@ -47,13 +51,35 @@ export const routes: Routes = [
       },
       {
         path: 'factura', 
-        component: FacturaComponent // Factura se carga dentro del dashboard
+        component: FacturaComponent 
+      },
+      {
+        path: 'clientes',
+        component: ClientesComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ['Manager'] }
+      },
+      {
+        path: 'usuarios-registrados',
+        component: UsuariosRegistradosComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ['Manager'] }
+      },
+      {
+        path: 'api-endpoints',
+        component: ApiEndpointsComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ['Manager'] }
       }
     ]
   },
   { 
     path: 'quienes-somos', 
     component: QuienesSOmos01Component 
+  },
+  { 
+    path: 'forum',
+    component: ForumComponent
   },
   { 
     path: 'unauthorized', 

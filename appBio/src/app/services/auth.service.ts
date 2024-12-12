@@ -1,29 +1,60 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = environment.apiUrl;
   private roleSubject = new BehaviorSubject<string>('');
   private usernameSubject = new BehaviorSubject<string>('');
+  private baseUrl = environment.apiUrl;
 
   userRole$ = this.roleSubject.asObservable();
   username$ = this.usernameSubject.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.checkAuthStatus();
+  }
+
+  login(username: string, password: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Auth/login`, { username, password }, { withCredentials: true });
+  }
+
+  logout(): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Auth/logout`, {}, { withCredentials: true });
+  }
+
+  register(userData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Auth/register`, userData, { withCredentials: true });
+  }
+
+  verificarDNI(dni: number): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Auth/verificarDNI`, { DNI: dni }, { withCredentials: true });
+  }
+
+  checkAuthStatus() {
+    this.http.get(`${this.baseUrl}/Auth/user`, { withCredentials: true })
+      .subscribe({
+        next: (user: any) => {
+          if (user) {
+            this.roleSubject.next(user.rol || '');
+            this.usernameSubject.next(user.username || '');
+          }
+        },
+        error: () => {
+          this.roleSubject.next('');
+          this.usernameSubject.next('');
+        }
+      });
+  }
 
   getUserInfo() {
-    // Obtener la información del usuario del localStorage o de donde la tengas almacenada
     const userInfo = {
-      role: localStorage.getItem('userRole') || '',
-      username: localStorage.getItem('username') || ''
+      role: this.roleSubject.value,
+      username: this.usernameSubject.value
     };
-    this.roleSubject.next(userInfo.role);
-    this.usernameSubject.next(userInfo.username);
     return userInfo;
   }
 
@@ -32,27 +63,10 @@ export class AuthService {
     nuevaPassword: string,
     passwordActual: string
   }): Observable<any> {
-    const endpoint = `${this.baseUrl}/Auth/actualizar-credenciales`;
-    
-    // Convertir los nombres de las propiedades para que coincidan con el DTO del backend
-    const requestBody = {
+    return this.http.put(`${this.baseUrl}/Auth/actualizar-credenciales`, {
       NuevoUsername: credenciales.nuevoUsername,
       NuevaPassword: credenciales.nuevaPassword,
       PasswordActual: credenciales.passwordActual
-    };
-
-    console.log('URL de la petición:', endpoint);
-    console.log('Datos enviados:', requestBody);
-
-    // Agregar el tipo de contenido y manejar las cookies
-    const headers = { 
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    };
-
-    return this.http.put(endpoint, requestBody, { 
-      headers,
-      withCredentials: true // Importante para enviar las cookies de autenticación
-    });
+    }, { withCredentials: true });
   }
 }
