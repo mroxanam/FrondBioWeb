@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +22,14 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/Auth/login`, { username, password }, { withCredentials: true });
-  }
+    return this.http.post(`${this.baseUrl}/Auth/login`, { username, password }, { withCredentials: true })
+    .pipe(
+      catchError(err => {
+        console.error('Login error', err); // Manejo de error
+        return throwError(err);
+      })
+    );
+  }   
 
   logout(): Observable<any> {
     return this.http.post(`${this.baseUrl}/Auth/logout`, {}, { withCredentials: true });
@@ -43,14 +52,15 @@ export class AuthService {
             this.usernameSubject.next(user.username || '');
           }
         },
-        error: () => {
+        error: (err) => {
+          console.error('Error checking auth status', err);
           this.roleSubject.next('');
           this.usernameSubject.next('');
         }
       });
   }
 
-  getUserInfo() {
+  getUserInfo() : { role: string, username: string } {
     const userInfo = {
       role: this.roleSubject.value,
       username: this.usernameSubject.value
@@ -63,6 +73,10 @@ export class AuthService {
     nuevaPassword: string,
     passwordActual: string
   }): Observable<any> {
+    if (!credenciales.nuevoUsername || !credenciales.nuevaPassword || !credenciales.passwordActual) {
+      return throwError('Todos los campos son obligatorios');
+    }
+
     return this.http.put(`${this.baseUrl}/Auth/actualizar-credenciales`, {
       NuevoUsername: credenciales.nuevoUsername,
       NuevaPassword: credenciales.nuevaPassword,

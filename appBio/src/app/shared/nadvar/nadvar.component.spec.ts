@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { NadvarComponent } from './nadvar.component';
+import { CommonModule } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing'; 
 
 describe('NadvarComponent', () => {
   let component: NadvarComponent;
@@ -8,7 +10,8 @@ describe('NadvarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NadvarComponent]
+      imports: [HttpClientTestingModule,
+         CommonModule, NadvarComponent,RouterTestingModule] // NadvarComponent se debe agregar aquí
     })
     .compileComponents();
 

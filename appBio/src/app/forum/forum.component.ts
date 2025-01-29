@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../servicios/auth.service';
 
-interface Pregunta {
+export interface Pregunta {
   titulo: string;
   pregunta: string;
   respuestas: { usuario: string; respuesta: string }[];

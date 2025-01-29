@@ -18,22 +18,14 @@ import { FacturaComponent } from './factura/factura.component';
     selector: 'app-root',
     standalone: true,
     imports: [
-        RouterOutlet,
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        NadvarComponent,
-        HomePageComponent,
-        FooterComponent,
-        LoginComponent,
-        RegistroComponent,
-        AceptarTerminosComponent,
-        DashBoardComponent,
-        QuienesSOmos01Component,
-        RestablecerContrasenaComponent,
-        FacturaComponent
-    ],
+    RouterOutlet,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NadvarComponent,
+    FooterComponent
+],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })

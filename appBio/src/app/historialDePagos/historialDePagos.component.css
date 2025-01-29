@@ -3,7 +3,7 @@
   justify-content: center; /* Mantiene el contenido centrado en el eje horizontal */
   align-items: center; /* Alinea verticalmente el contenido en el centro */
   height: 100vh; /* Asegúrate de que ocupa toda la pantalla */
-  background-image: url('../../imange/con_lamparita.jpeg'); /* Ruta correcta de tu imagen */
+  background-image: url('../assets/imange/con_lamparita.jpeg'); /* Ruta correcta de tu imagen */
   background-size: cover; /* Hace que la imagen cubra toda la pantalla */
   background-position: center;
   color: white; /* Cambia el color del texto si es necesario */

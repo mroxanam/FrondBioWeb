@@ -18,6 +18,7 @@ A continuación, se presenta un resumen de tres herramientas populares para la c
 - **Acceso**: [Google Data Studio](https://datastudio.google.com/)
 
 **Instalación y Requisitos**:
+
 - **Instalación**: Basado en la web; no requiere instalación.
 - **Requisitos**: Compatible con navegadores modernos. Se necesita una cuenta de Google.
 
