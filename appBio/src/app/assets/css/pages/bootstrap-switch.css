@@ -65,7 +65,9 @@ Bootstrap Switch
   width: 90px;
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none; }
+  -ms-user-select: none; 
+  user-select: none;
+}
 
 .onoffswitch-checkbox {
   display: none; }

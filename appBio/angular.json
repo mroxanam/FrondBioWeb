@@ -17,16 +17,7 @@
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "src/assets"
-              },
-              {
-                "glob": "**/*",
-                "input": "src/imange"
-              }
-            ],
+           
             "styles": [
               "@angular/material/prebuilt-themes/azure-blue.css",
               "node_modules/bootstrap/dist/css/bootstrap.css",
@@ -91,11 +82,10 @@
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
+              "src/favicon.ico",
+              "src/assets"
+         ],
+
             "styles": [
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css"

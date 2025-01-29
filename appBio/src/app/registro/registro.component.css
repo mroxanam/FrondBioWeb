@@ -36,7 +36,7 @@ button.btn {
   align-items: flex-start;
   justify-content: flex-start;
   min-height: 100vh;
-  background: url('../assets/images/con_lamparita.jpeg') no-repeat center center fixed;
+  background: url('/assets/images/con_lamparita.jpeg') no-repeat center center fixed;
   background-size: cover;
   padding: 20px;
 }

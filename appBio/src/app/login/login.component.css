@@ -1,6 +1,6 @@
 /* Fondo completo con la imagen */
 .login-container {
-    background-image: url('../assets/images/con_lamparita.jpeg');
+    background-image: url('/assets/images/con_lamparita.jpeg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

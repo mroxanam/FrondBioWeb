@@ -63,6 +63,10 @@ p.hero-title {
 .card-text {
   color: #FFF;
 }
+.card-custom {
+  max-width: 18rem;
+}
+
 
 .logo-medio-ambiente {
   width: 4rem;
