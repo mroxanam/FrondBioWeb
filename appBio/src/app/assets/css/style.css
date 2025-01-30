@@ -851,10 +851,10 @@ sidebar navigation
       .sidebar-nav > ul > li.active > a i {
         color: #398bf7; }
   .sidebar-nav .waves-effect {
-    transition: none;
-    -webkit-transition: none;
-    -o-transition: none; }
-
+   -webkit-transition: all 0.3s ease;
+    o-transition: all 0.3s ease; 
+    -transition: all 0.3s ease; }
+  
 .sidebar-nav .has-arrow {
   position: relative; }
   .sidebar-nav .has-arrow::after {
