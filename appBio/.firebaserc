@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "biodigestorcapilladelmon-723be"
-  }
+    "default": "biodigestorcapilladelmon-723be",
+    "y": "biodigestorcapilladelmon-723be"
+  },
+  "targets": {},
+  "etags": {}
 }

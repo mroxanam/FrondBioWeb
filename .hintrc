@@ -11,6 +11,8 @@
           "-webkit-font-feature-settings"
         ]
       }
-    ]
+    ],
+    "axe/language": "off",
+    "disown-opener": "off"
   }
 }
